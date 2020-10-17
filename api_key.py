@@ -1,5 +1,0 @@
-consumer_key = '0atJ699oWiLIWBESmf6ZybN30'
-consumer_key_secret = 'DEnyIJEyZYZBOr3fgTljqsGkbfEDtr1EOErsA0vo6V2CkPh6I9'
-
-olafyxyz_access_key = '1231405854194356224-IGkZ54123bxNfFFWyEmkl4RbDeQ250'
-olafyxyz_access_key_secret = '8vzQrxYFGAvPFlUky9HIXuJzwCIP7IgLVxJ2Bya986Zhv'
