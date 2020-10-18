@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content_head %}
+
+
+
+<img src='{{ img_link }}'>
+
+<div id="tweet" tweetID="{{ tweet_id }}"></div>
+
+<script sync src="https://platform.twitter.com/widgets.js"></script>
+
+<script>
+
+  window.onload = (function(){
+
+    var tweet = document.getElementById("tweet");
+    var id = tweet.getAttribute("tweetID");
+
+    twttr.widgets.createTweet(
+      id, tweet,
+      {
+        conversation : 'none',    // or all
+        cards        : 'visible',  // or visible
+        linkColor    : '#cc0000', // default is blue
+        theme        : 'light'    // or dark
+      })
+
+  });
+
+</script>
+
+{% endblock content_head %}

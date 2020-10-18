@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 #own pages
-from pages.views import homepage_view, demo_view, about_view, logout, gallery_view
+from pages.views import homepage_view, demo_view, about_view, logout, gallery_view, img_view
 
 
 urlpatterns = [
@@ -27,5 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'', include('social_django.urls', namespace='social')),
     path('logout/', logout, name='logout'),
-    path('gallery/', gallery_view, name='gallery')
+    path('gallery/', gallery_view, name='gallery'),
+    path('viewimage/<int:media_id>/', img_view),
     ]
