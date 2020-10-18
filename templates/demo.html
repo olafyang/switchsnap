@@ -2,7 +2,9 @@
 
 {% block content_head %}
 <h1>Demo</h1>
-{% for url in img_url %}
-<img src="{{ url }}">
+{% for id,url in img_dict.items %}
+<a href='/viewimage/{{ id }}'>
+    <img src="{{ url }}">
+</a>
 {% endfor %}
 {% endblock content_head%}
