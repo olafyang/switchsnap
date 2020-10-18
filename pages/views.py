@@ -40,6 +40,7 @@ def demo_view(request, *args, **kwargs):
     return render(request, "demo.html", context)
 
 def gallery_view(request):
+    #check if user is logged in
     if not request.user.is_authenticated:
         messages.add_message(request, messages.INFO, 'Login is required')
         return redirect('/', )
@@ -49,10 +50,10 @@ def gallery_view(request):
 
     #fetch existing img_url from db to img_list, reverse order so new images staies on top
     try:
-        nssImgs_url = list(reversed(list(db_user_objects.values_list('media_url', flat=True))))
+        nssImgs = dict(zip(list(reversed(list(db_user_objects.values_list('twitter_media_id', flat=True)))), list(reversed(list(db_user_objects.values_list('media_url', flat=True))))))
     #if no db entry exist, create an empty list to be processed
     except:
-        nssImgs_url = []
+        nssImgs = {}
 
     #api access tokens
     tokens = request.user.social_auth.get(provider='twitter').extra_data['access_token']
@@ -63,20 +64,29 @@ def gallery_view(request):
         if tweet.source == "Nintendo Switch Share":
             for extended_entitie_media in tweet.extended_entities['media']:
                 if extended_entitie_media['type'] == 'photo':
-                    nssImgs_url.append(extended_entitie_media['media_url_https'])
+                    #nssImgs_url.append(extended_entitie_media['media_url_https'])
+                    #nssImgs_tweet_id.append(tweet.id)
+                    nssImgs[tweet.id] = extended_entitie_media['media_url_https']
                     db_entry = img_link_storage(media_owner=request.user, media_url=extended_entitie_media['media_url_https'], tweet_id=tweet.id, twitter_media_id=extended_entitie_media['id'])
                     db_entry.save()
                 else:
                     continue
     
     context = {
-        'img_url': nssImgs_url,
+        #'img_url': nssImgs_url,
+        #'tweet_id': nssImgs_tweet_id,
+        'img_dict': nssImgs
     }
 
     return render(request, "gallery.html", context)
 
-def img_view_slug(request, twitter_media_id):
-    return
+def img_view(request, media_id):
+    db_img_obj = img_link_storage.objects.get(twitter_media_id=media_id)
+    context = {
+    'img_link': db_img_obj.media_url,
+    'tweet_id': db_img_obj.tweet_id,
+    }
+    return render(request, 'imgview.html', context)
 
 def about_view(request):
     return render(request, "about.html", {})
