@@ -2,9 +2,9 @@
 
 {% block content_head %}
 <h1>Demo</h1>
-{% for id,url in img_dict.items %}
-<a href='/viewimage/{{ id }}'>
-    <img src="{{ url }}">
+{%  for img in img_dict %}
+<a href='/viewimage/{{ img.twitter_media_id }}'>
+    <img src="{{ img.media_url }}" alt="">
 </a>
 {% endfor %}
 {% endblock content_head%}

@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 {% block content_head %}
-{% for id,url in img_dict.items %}
-<a href='/viewimage/{{ id }}'>
-    <img src="{{ url }}">
-</a>
-{% endfor %}
+    <script>
+        function loadMore()
+        {
+            document.getElementById("img_block").innerHTML = "{% for img in img_dict %}<a href = '/media/{{ img.twitter_media_id }}'\><img src = '{{ img.media_url }}' ></a>{% endfor %};"
+        }
+    </script>
+
+    <div id="img_block"></div>
+    <button type="button" onclick="loadMore()">Load More</button>
+
 
 {% endblock content_head %}

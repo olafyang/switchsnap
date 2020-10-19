@@ -28,5 +28,5 @@ urlpatterns = [
     url(r'', include('social_django.urls', namespace='social')),
     path('logout/', logout, name='logout'),
     path('gallery/', gallery_view, name='gallery'),
-    path('viewimage/<int:media_id>/', img_view),
+    path('media/<int:media_id>/', img_view),
     ]
