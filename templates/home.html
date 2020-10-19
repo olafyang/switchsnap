@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content_head %}
+<h1>Home</h1>
+
+{% if message %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if user.is_authenticated  %}
+    <h2>Hello, @{{ handle }}</h2>
+{% else %}
+    <h2>Get started by logging in with your twitter account</h2>
+    <a href="demo/">
+        <button type="button">Demo</button>
+    </a>
+    <a href="{% url 'social:begin' 'twitter' %}">
+        <button type="button">Login via Twitter</button>
+    </a>  
+{% endif %}
+
+
+{% endblock content_head %}
