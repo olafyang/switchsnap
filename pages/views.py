@@ -45,18 +45,18 @@ def demo_view(request):
     return render(request, "demo.html", context)
 
 
-def gallery_view(request):
+def gallery_view(request, number_of_result=3):
     # check if user is logged in
     if not request.user.is_authenticated:  # not working
         messages.add_message(request, messages.INFO, 'Login is required')
-        return redirect('/', )
+        return redirect('/')
 
     # fetch user media entry form db
     db_user_objects = img_link_storage.objects.filter(media_owner=request.user).order_by('twitter_media_id')
     db_max_id = db_user_objects.aggregate(Max('tweet_id'))['tweet_id__max']  # find last entry in db
-    nss_images = db_user_objects.reverse()
+    nss_images = db_user_objects.reverse()[:number_of_result]
 
-    # api access tokensN
+    # api access tokens
     tokens = request.user.social_auth.get(provider='twitter').extra_data['access_token']
     auth.set_access_token(tokens['oauth_token'], tokens['oauth_token_secret'])
     tweets = api.user_timeline(tweet_mode="extended", since_id=db_max_id)  # get tweets from twitter api
@@ -75,6 +75,7 @@ def gallery_view(request):
 
     context = {
         'img_dict': nss_images,
+        'n': number_of_result,
     }
 
     return render(request, "gallery.html", context)
