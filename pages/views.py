@@ -24,11 +24,12 @@ def homepage_view(request):
         return render(request, "home.html", {})
 
 
-def demo_view(request):
+def demo_view(request, number_of_result=50):
     db_user_objects = img_link_storage.objects.filter(media_owner=User.objects.get(username='olafyxyz')).order_by(
         'twitter_media_id')
     db_max_id = db_user_objects.aggregate(Max('tweet_id'))['tweet_id__max']  # find last entry in db
-    nss_images = db_user_objects.reverse()
+    db_count = db_user_objects.count()
+    nss_images = db_user_objects.reverse()[:number_of_result]
 
     # get tweets from twitter api
     tweets = api.user_timeline(id='1231405854194356224', tweet_mode="extended", since_id=db_max_id)
@@ -40,12 +41,14 @@ def demo_view(request):
                 else:
                     continue
     context = {
-        'img_dict': nss_images
+        'img_dict': nss_images,
+        'n': number_of_result,
+        'db_count': db_count,
     }
     return render(request, "demo.html", context)
 
 
-def gallery_view(request, number_of_result=10):
+def gallery_view(request, number_of_result=50):
     # check if user is logged in
     if not request.user.is_authenticated:  # not working
         messages.add_message(request, messages.INFO, 'Login is required')
@@ -54,6 +57,7 @@ def gallery_view(request, number_of_result=10):
     # fetch user media entry form db
     db_user_objects = img_link_storage.objects.filter(media_owner=request.user).order_by('twitter_media_id')
     db_max_id = db_user_objects.aggregate(Max('tweet_id'))['tweet_id__max']  # find last entry in db
+    db_count = db_user_objects.count()
     nss_images = db_user_objects.reverse()[:number_of_result]
 
     # api access tokens
@@ -76,6 +80,7 @@ def gallery_view(request, number_of_result=10):
     context = {
         'img_dict': nss_images,
         'n': number_of_result,
+        'db_count': db_count,
     }
 
     return render(request, "gallery.html", context)
