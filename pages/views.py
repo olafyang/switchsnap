@@ -50,8 +50,7 @@ def demo_view(request, number_of_result=50):
 
 def gallery_view(request, number_of_result=50):
     # check if user is logged in
-    if not request.user.is_authenticated:  # not working
-        messages.add_message(request, messages.INFO, 'Login is required')
+    if not request.user.is_authenticated:
         return redirect('/')
 
     # fetch user media entry form db
@@ -102,3 +101,7 @@ def about_view(request):
 def logout(request):
     auth_logout(request)
     return redirect('/')
+
+
+def privacy(request):
+    return render(request, "privacy.html")

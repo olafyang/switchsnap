@@ -8,9 +8,11 @@
 
 <body class="flex flex-col min-h-screen">
 {% include 'nav.html' %}
-{% block content_head %}
-base.html
-{% endblock content_head %}
+<div class="flex flex-auto">
+    {% block content_head %}
+    base.html
+    {% endblock content_head %}
+</div>
 {% include 'nav_bottom.html' %}
 </body>
 

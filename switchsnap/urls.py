@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 #own pages
-from pages.views import homepage_view, demo_view, about_view, logout, gallery_view, img_view
+from pages.views import homepage_view, demo_view, about_view, logout, gallery_view, img_view, privacy
 
 from django.urls import re_path
 
@@ -32,4 +32,5 @@ urlpatterns = [
     path('gallery/', gallery_view, name='gallery'),
     path('gallery/&n=<int:number_of_result>', gallery_view),
     path('media/<int:media_id>/', img_view),
+    path('privacy', privacy),
     ]

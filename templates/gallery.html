@@ -6,21 +6,22 @@
             window.location.replace("/gallery/&n=" + newN + "#img-block-end");
         }
     </script>
-    <div class="flex flex-auto">
-        <div>
-            <div class="m-4 grid sm:grid-cols-1 lg:grid-cols-5 xl:grid-cols-10 flex flex-wrap">
-                {% for img in img_dict %}
-                <a class="p-1 transform transition hover:scale-105 ease-in-out duration-100" href="/media/{{ img.twitter_media_id }}/">
+    <div class="">
+        <div class="m-4 grid sm:grid-cols-1 lg:grid-cols-5 xl:grid-cols-10 flex flex-wrap">
+            {% for img in img_dict %}
+                <a class="p-1 transform transition hover:scale-105 ease-in-out duration-100"
+                   href="/media/{{ img.twitter_media_id }}/">
                     <img class="rounded-2xl" src="{{ img.media_url }}" alt="{{ img.media_url }}">
                 </a>
-                {% endfor %}
+            {% endfor %}
 
-            </div>
-            <div class="flex justify-center" id="img-block-end">
-                {% if n <  db_count %}
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button" onclick="loadMore()">Load More</button>
-                {% endif %}
-            </div>
+        </div>
+        <div class="flex justify-center" id="img-block-end">
+            {% if n <  db_count %}
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button"
+                        onclick="loadMore()">Load More
+                </button>
+            {% endif %}
         </div>
     </div>
 

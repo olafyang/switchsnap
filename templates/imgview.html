@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content_head %}
 
-
-    <div class="flex flex-row">
-        <div class="">
-            <img src='{{ img_link }}'>
+    <div class="min-w-full">
+        <div class="flex flex-row bg-gray-900 pt-3 pb-3">
+            <div class="mr-3 ml-3 max-w-4xl">
+                <img class="rounded-2xl" src='{{ img_link }}'>
+            </div>
+                <div class="" id="tweet" tweetID="{{ tweet_id }}"></div>
         </div>
-        <div class="p-3 bg-gray-900" id="tweet" tweetID="{{ tweet_id }}"></div>
-
     </div>
 
 
