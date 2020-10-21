@@ -2,31 +2,35 @@
 {% block content_head %}
 
 
+    <div class="flex flex-row">
+        <div class="">
+            <img src='{{ img_link }}'>
+        </div>
+        <div class="p-3 bg-gray-900" id="tweet" tweetID="{{ tweet_id }}"></div>
 
-<img src='{{ img_link }}'>
+    </div>
 
-<div id="tweet" tweetID="{{ tweet_id }}"></div>
 
-<script sync src="https://platform.twitter.com/widgets.js"></script>
 
-<script>
+    <script sync src="https://platform.twitter.com/widgets.js"></script>
+    <script>
 
-  window.onload = (function(){
+        window.onload = (function () {
 
-    var tweet = document.getElementById("tweet");
-    var id = tweet.getAttribute("tweetID");
+            var tweet = document.getElementById("tweet");
+            var id = tweet.getAttribute("tweetID");
 
-    twttr.widgets.createTweet(
-      id, tweet,
-      {
-        conversation : 'none',    // or all
-        cards        : 'visible',  // or visible
-        linkColor    : '#cc0000', // default is blue
-        theme        : 'light'    // or dark
-      })
+            twttr.widgets.createTweet(
+                id, tweet,
+                {
+                    conversation: 'none',    // or all
+                    cards: 'visible',  // or visible
+                    linkColor: '#cc0000', // default is blue
+                    theme: 'light'    // or dark
+                })
 
-  });
+        });
 
-</script>
+    </script>
 
 {% endblock content_head %}
