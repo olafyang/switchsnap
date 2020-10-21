@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-
     # own
     'pages',
     'img_storage',
 ]
+
 
 SOCIAL_AUTH_TWITTER_KEY = consumer_key
 SOCIAL_AUTH_TWITTER_SECRET = consumer_key_secret
@@ -52,7 +52,7 @@ LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'gallery'
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
