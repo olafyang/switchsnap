@@ -45,7 +45,7 @@ def demo_view(request):
     return render(request, "demo.html", context)
 
 
-def gallery_view(request, number_of_result=3):
+def gallery_view(request, number_of_result=10):
     # check if user is logged in
     if not request.user.is_authenticated:  # not working
         messages.add_message(request, messages.INFO, 'Login is required')
