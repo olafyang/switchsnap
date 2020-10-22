@@ -2,17 +2,15 @@
 {% block content_head %}
 
     <div class="min-w-full bg-gray-900">
-        <div class="flex flex-row pt-3 pb-3">
-            <div class="mr-3 ml-3 max-w-4xl">
-                <img class="rounded-2xl" src='{{ img_link }}'>
-            </div>
-                <div class="" id="tweet" tweetID="{{ tweet_id }}"></div>
+        <div class="mr-3 ml-3 mt-3 flex justify-center">
+            <img class="rounded-2xl" src='{{ img_link }}'>
         </div>
+        <div class="flex justify-center" id="tweet" tweetID="{{ tweet_id }}"></div>
     </div>
 
 
 
-    <script sync src="https://platform.twitter.com/widgets.js"></script>
+    <script src="https://platform.twitter.com/widgets.js"></script>
     <script>
 
         window.onload = (function () {
@@ -30,7 +28,6 @@
                 })
 
         });
-
     </script>
 
 {% endblock content_head %}

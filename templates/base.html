@@ -6,11 +6,11 @@
 <link type="text/css" href="{% static 'tailwind.css' %}" rel="stylesheet">
 
 
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen min-w-full">
 {% include 'nav.html' %}
 <div class="flex flex-auto">
     {% block content_head %}
-    base.html
+        base.html
     {% endblock content_head %}
 </div>
 {% include 'nav_bottom.html' %}

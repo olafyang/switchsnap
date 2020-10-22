@@ -14,30 +14,37 @@ api = tweepy.API(auth)
 # Create your views here.
 
 def homepage_view(request):
-    if request.user.is_authenticated:
-        context = {
-            'handle': request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name'],
-        }
-        return render(request, "home.html", context)
-    else:
-        return render(request, "home.html", {})
+    try:
+        handle = '@' + request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name']
+    except:
+        handle = ''
+    context = {
+        'handle': handle
+    }
+    return render(request, "home.html", context)
 
 
-def demo_view(request, number_of_result=40):
+def demo_view(request, number_of_result=50):
     db_user_objects = img_link_storage.objects.filter(media_owner=User.objects.get(username='olafyxyz')).order_by(
         'twitter_media_id')
     db_count = db_user_objects.count()
     nss_images = db_user_objects.reverse()[:number_of_result]
 
+    try:
+        handle = '@' + request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name']
+    except:
+        handle = ''
+
     context = {
         'img_dict': nss_images,
         'n': number_of_result,
         'db_count': db_count,
+        'handle': handle
     }
     return render(request, "demo.html", context)
 
 
-def gallery_view(request, number_of_result=40):
+def gallery_view(request, number_of_result=50):
     # check if user is logged in
     if not request.user.is_authenticated:
         return redirect('/')
@@ -51,7 +58,7 @@ def gallery_view(request, number_of_result=40):
     # api access tokens
     tokens = request.user.social_auth.get(provider='twitter').extra_data['access_token']
     auth.set_access_token(tokens['oauth_token'], tokens['oauth_token_secret'])
-    tweets = api.user_timeline(tweet_mode="extended", since_id=db_max_id)  # get tweets from twitter api
+    tweets = api.user_timeline(tweet_mode="extended", since_id=db_max_id, count=100)  # get tweets from twitter api
 
     for tweet in tweets:
         if tweet.source == "Nintendo Switch Share":
@@ -68,7 +75,7 @@ def gallery_view(request, number_of_result=40):
         'img_dict': nss_images,
         'n': number_of_result,
         'db_count': db_count,
-        'handle': request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name'],
+        'handle': '@' + request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name'],
     }
 
     return render(request, "gallery.html", context)
@@ -76,17 +83,25 @@ def gallery_view(request, number_of_result=40):
 
 def img_view(request, media_id):
     db_img_obj = img_link_storage.objects.get(twitter_media_id=media_id)
+    try:
+        handle = '@' + request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name']
+    except:
+        handle = ''
     context = {
         'img_link': db_img_obj.media_url,
         'tweet_id': db_img_obj.tweet_id,
-        'handle': request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name'],
+        'handle': handle,
     }
     return render(request, 'imgview.html', context)
 
 
 def about_view(request):
+    try:
+        handle = '@' + request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name']
+    except:
+        handle = ''
     context = {
-        'handle': request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name']
+        'handle': handle,
     }
     return render(request, "about.html", context)
 
@@ -97,7 +112,11 @@ def logout(request):
 
 
 def privacy(request):
+    try:
+        handle = '@' + request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name']
+    except:
+        handle = ''
     context = {
-        'handle': request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name']
+        'handle': handle,
     }
     return render(request, "privacy.html", context)

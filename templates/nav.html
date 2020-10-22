@@ -1,12 +1,12 @@
-<nav class="flex items-center justify-between flex-wrap bg-red-500 p-6">
-    <div class="flex block">
-        <div class="flex items-center text-white mr-6">
+<nav class="flex items-center justify-between flex-wrap bg-red-500 p-3">
+    <div class="flex items-center block">
+        <div class="flex text-white mr-6">
             <a href="/">
-                <span class="font-bold text-xl tracking-tight">SwitchSnap</span>
+                <p class="font-bold tracking-tight text-3xl sm:text-5xl lg:text-xl xl:text-xl">SwitchSnap</p>
             </a>
         </div>
-        <div class="flex flex-grow items-center">
-            <div class="text-sm">
+        <div class="flex flex-grow items-center ">
+            <div class="sm:text-2xl lg:text-base xl:text-base">
                 {% if user.is_authenticated %}
                     <a href="/gallery/" class="inline-block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                         Gallery
@@ -23,21 +23,21 @@
         </div>
 
     </div>
-    <div class="flex justify-end block">
+    <div class="flex justify-end block sm:text-3xl lg:text-base xl:text-base">
         {% if user.is_authenticated %}
             <div class="items-center">
                 <div class="inline-block">
-                    <p class="text-white font-semibold">@{{ handle }}</p>
+                    <p class="text-white font-semibold">{{ handle }}</p>
                 </div>
                 <a class="pl-3 inline-block" href="/logout/">
-                    <button class="bg-transparent hover:bg-white text-white hover:text-red-500 font-bold py-2 px-4 rounded inline-flex items-center border border-white">
+                    <button class="bg-transparent hover:bg-white text-white hover:text-red-500 font-bold py-2 px-4 rounded-2xl inline-flex items-center border border-white">
                         Logout
                     </button>
                 </a>
             </div>
         {% else %}
             <a class="" href="{% url 'social:begin' 'twitter' %}">
-                <button class="bg-white hover:bg-red-500 text-red-500 hover:text-white font-bold py-2 px-4 rounded inline-flex items-center border border-white hover:border-white">
+                <button class="bg-white hover:bg-red-500 text-red-500 hover:text-white font-bold py-2 px-4 rounded-2xl inline-flex items-center border border-white hover:border-white">
                     <svg class="fill-current" width="25" height="20" viewBox="10 -1 10 25">
                         <g>
                             <path d="M23.643 4.937c-.835.37-1.732.62-2.675.733a4.67 4.67 0 0 0 2.048-2.578 9.3 9.3 0 0 1-2.958 1.13 4.66 4.66 0 0 0-7.938 4.25 13.229 13.229 0 0 1-9.602-4.868c-.4.69-.63 1.49-.63 2.342A4.66 4.66 0 0 0 3.96 9.824a4.647 4.647 0 0 1-2.11-.583v.06a4.66 4.66 0 0 0 3.737 4.568 4.692 4.692 0 0 1-2.104.08 4.661 4.661 0 0 0 4.352 3.234 9.348 9.348 0 0 1-5.786 1.995 9.5 9.5 0 0 1-1.112-.065 13.175 13.175 0 0 0 7.14 2.093c8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602a9.47 9.47 0 0 0 2.323-2.41z"></path>
