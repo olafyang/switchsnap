@@ -25,6 +25,7 @@ from django.urls import re_path
 urlpatterns = [
     path('', homepage_view, name='home'),
     path('demo/', demo_view, name='demo'),
+    path('demo/&n=<int:number_of_result>', demo_view),
     path('about/', about_view, name='about'),
     path('admin/', admin.site.urls),
     url(r'', include('social_django.urls', namespace='social')),
