@@ -8,4 +8,5 @@ class img_link_storage(models.Model):
     media_owner = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default='username_missing')
     media_url = models.URLField(unique=True)
     tweet_id = models.BigIntegerField()
+    media_type = models.CharField(max_length=5)
     twitter_media_id = models.BigIntegerField(unique=True, primary_key=True)
