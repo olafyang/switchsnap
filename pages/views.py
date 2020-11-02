@@ -6,9 +6,21 @@ from django.db.models import Max
 from api_key import *
 import tweepy
 
+
+# custom methods
+def get_largest_video(extended_entity_media):
+    vid_variants = {}
+    for vid in extended_entity_media['video_info']['variants']:
+        if not vid['content_type'] == 'video/mp4':
+            continue
+        else:
+            vid_variants[vid['bitrate']] = vid['url']
+    return vid_variants[max(vid_variants.keys())]
+
+
 # twitter api
 auth = tweepy.OAuthHandler(consumer_key, consumer_key_secret)
-api = tweepy.API(auth)
+tw_api = tweepy.API(auth)
 
 
 # Create your views here.
@@ -58,14 +70,15 @@ def gallery_view(request, number_of_result=50):
     # api access tokens
     tokens = request.user.social_auth.get(provider='twitter').extra_data['access_token']
     auth.set_access_token(tokens['oauth_token'], tokens['oauth_token_secret'])
-    tweets = api.user_timeline(tweet_mode="extended", since_id=db_max_id, count=100)  # get tweets from twitter api
+    tweets = tw_api.user_timeline(tweet_mode="extended", since_id=db_max_id, count=100)  # get tweets from twitter api
 
     for tweet in tweets:
         if tweet.source == "Nintendo Switch Share":
             for extended_entity_media in tweet.extended_entities['media']:
-                if extended_entity_media['type'] == 'photo':
+                if extended_entity_media['type'] == 'photo' or extended_entity_media['type' == 'video']:
                     db_entry = img_link_storage(media_owner=request.user,
                                                 media_url=extended_entity_media['media_url_https'], tweet_id=tweet.id,
+                                                media_type=extended_entity_media['type'],
                                                 twitter_media_id=extended_entity_media['id'])
                     db_entry.save()
                 else:
