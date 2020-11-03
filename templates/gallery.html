@@ -6,9 +6,9 @@
             window.location.replace("/gallery/&n=" + newN + "#img-block-end");
         }
     </script>
-    <div class="bg-gray-900 min-w-full">
+    <div class="min-w-full">
         <div class="m-4 grid sm:grid-cols-1 lg:grid-cols-5 xl:grid-cols-10 flex flex-wrap">
-            {% for img in img_dict %}
+            {% for img in media %}
                 {% if img.media_type == 'photo' %}
                     <a class="sm:p-3 lg:p-1 transform transition hover:scale-105 ease-in-out duration-100"
                        href="/media/{{ img.twitter_media_id }}/">
@@ -17,18 +17,30 @@
                 {% elif img.media_type == 'video' %}
                     <a class="sm:p-3 lg:p-1 transform transition hover:scale-105 ease-in-out duration-100"
                        href="/media/{{ img.twitter_media_id }}">
-
+                        <div class="text-white z-10 relative w-full">
+                            <video class="rounded-2xl">
+                                <source src="{{ img.media_url }}" type="video/mp4">
+                            </video>
+                            <div class="absolute right-0 bottom-0 pr-3 pb-1">
+                                <div class="bg-black opacity-75 rounded">
+                                    <p class="pl-2 pr-2">{{ img.duration_in_seconds }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </a>
+                {% endif %}
             {% endfor %}
+        </div>
+    </div>
 
-        </div>
-        <div class="flex justify-center pb-5" id="img-block-end">
-            {% if n <  db_count %}
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl sm:text-6xl lg:text-base xl:text-base" type="button"
-                        onclick="loadMore()">Load More
-                </button>
-            {% endif %}
-        </div>
+
+    <div class="flex justify-center pb-5" id="img-block-end">
+        {% if n <  db_count %}
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl sm:text-6xl lg:text-base xl:text-base"
+                    type="button"
+                    onclick="loadMore()">Load More
+            </button>
+        {% endif %}
     </div>
 
 
