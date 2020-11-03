@@ -5,6 +5,7 @@ from img_storage.models import img_link_storage
 from django.db.models import Max
 from api_key import *
 import tweepy
+from datetime import timedelta
 
 
 # custom methods
@@ -48,7 +49,7 @@ def demo_view(request, number_of_result=50):
         handle = ''
 
     context = {
-        'img_dict': nss_images,
+        'media': nss_images,
         'n': number_of_result,
         'db_count': db_count,
         'handle': handle
@@ -65,7 +66,7 @@ def gallery_view(request, number_of_result=50):
     db_user_objects = img_link_storage.objects.filter(media_owner=request.user).order_by('twitter_media_id')
     db_max_id = db_user_objects.aggregate(Max('tweet_id'))['tweet_id__max']  # find last entry in db
     db_count = db_user_objects.count()
-    nss_images = db_user_objects.reverse()[:number_of_result]
+    nss_media = db_user_objects.reverse()[:number_of_result]
 
     # api access tokens
     tokens = request.user.social_auth.get(provider='twitter').extra_data['access_token']
@@ -75,17 +76,24 @@ def gallery_view(request, number_of_result=50):
     for tweet in tweets:
         if tweet.source == "Nintendo Switch Share":
             for extended_entity_media in tweet.extended_entities['media']:
-                if extended_entity_media['type'] == 'photo' or extended_entity_media['type' == 'video']:
+                if extended_entity_media['type'] == 'photo':
                     db_entry = img_link_storage(media_owner=request.user,
                                                 media_url=extended_entity_media['media_url_https'], tweet_id=tweet.id,
                                                 media_type=extended_entity_media['type'],
+                                                twitter_media_id=extended_entity_media['id'])
+                    db_entry.save()
+                elif extended_entity_media['type'] == 'video':
+                    db_entry = img_link_storage(media_owner=request.user,
+                                                media_url=get_largest_video(extended_entity_media), tweet_id=tweet.id,
+                                                media_type=extended_entity_media['type'],
+                                                vid_length=timedelta(milliseconds=extended_entity_media['video_info']['duration_millis']),
                                                 twitter_media_id=extended_entity_media['id'])
                     db_entry.save()
                 else:
                     continue
 
     context = {
-        'img_dict': nss_images,
+        'media': nss_media,
         'n': number_of_result,
         'db_count': db_count,
         'handle': '@' + request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name'],
@@ -102,6 +110,7 @@ def img_view(request, media_id):
         handle = ''
     context = {
         'img_link': db_img_obj.media_url,
+        'media_type': db_img_obj.media_type,
         'tweet_id': db_img_obj.tweet_id,
         'handle': handle,
     }

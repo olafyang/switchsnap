@@ -9,14 +9,14 @@ tweet = api.get_status(id='1323368879641354240', tweet_mode="extended")
 tweet_media = tweet.extended_entities['media'][0]
 
 
-def get_largest_video(tweet):
-    vid_variants = {}
-    for vid in tweet_media['video_info']['variants']:
-        if not vid['content_type'] == 'video/mp4':
-            continue
-        else:
-            vid_variants[vid['bitrate']] = vid['url']
-    return vid_variants[max(vid_variants.keys())]
+print(tweet_media['video_info']['duration_millis'])
+# vid_variants = {}
+# for vid in tweet_media['video_info']['variants']:
+#     if not vid['content_type'] == 'video/mp4':
+#         continue
+#     else:
+#         vid_variants[vid['bitrate']] = vid['url']
+# print(vid_variants[max(vid_variants.keys())])
 
 # #lists of twitter meida url with "Nintendo Switch Share" as source
 # nssImgs_status_id = []
