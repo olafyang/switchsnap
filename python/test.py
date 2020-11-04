@@ -9,7 +9,7 @@ tweet = api.get_status(id='1323368879641354240', tweet_mode="extended")
 tweet_media = tweet.extended_entities['media'][0]
 
 
-print(tweet_media['video_info']['duration_millis'])
+print(tweet_media)
 # vid_variants = {}
 # for vid in tweet_media['video_info']['variants']:
 #     if not vid['content_type'] == 'video/mp4':

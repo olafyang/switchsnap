@@ -87,6 +87,7 @@ def gallery_view(request, number_of_result=50):
                                                 media_url=get_largest_video(extended_entity_media), tweet_id=tweet.id,
                                                 media_type=extended_entity_media['type'],
                                                 vid_length=timedelta(milliseconds=extended_entity_media['video_info']['duration_millis']),
+                                                vid_thumbnail_url=extended_entity_media['media_url_https'],
                                                 twitter_media_id=extended_entity_media['id'])
                     db_entry.save()
                 else:
