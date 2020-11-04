@@ -11,6 +11,7 @@ class img_link_storage(models.Model):
     tweet_id = models.BigIntegerField()
     media_type = models.CharField(max_length=5)
     vid_length = models.DurationField(null=True, blank=True)
+    vid_thumbnail_url = models.URLField(null=True, blank=True)
     twitter_media_id = models.BigIntegerField(unique=True, primary_key=True)
 
     def duration_in_seconds(self):

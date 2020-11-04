@@ -1,0 +1,7 @@
+{
+  "name": "switchsnap",
+  "version": "1.0.0",
+  "dependencies": {
+    "video-thumbnail-generator": "^1.1.3"
+  }
+}
