@@ -56,6 +56,26 @@ def demo_view(request, number_of_result=50):
     }
     return render(request, "demo.html", context)
 
+def demo_view_vue(request, number_of_result=50):
+    db_user_objects = img_link_storage.objects.filter(media_owner=User.objects.get(username='olafyxyz')).order_by(
+        'twitter_media_id')
+    db_count = db_user_objects.count()
+    nss_images = db_user_objects.reverse()[:number_of_result]
+
+    try:
+        handle = '@' + request.user.social_auth.get(provider='twitter').extra_data['access_token']['screen_name']
+    except:
+        handle = ''
+
+    context = {
+        'media': nss_images,
+        'n': number_of_result,
+        'db_count': db_count,
+        'handle': handle
+    }
+    return render(request, "demo-v.html", context)
+
+
 
 def gallery_view(request, number_of_result=50):
     # check if user is logged in

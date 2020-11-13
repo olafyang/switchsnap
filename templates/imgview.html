@@ -3,7 +3,7 @@
 
     <div class="min-w-full bg-gray-900">
         <div class="mr-3 ml-3 mt-3 flex justify-center">
-            <div class="pb-9/16">
+            <div class="lg:max-w-screen-lg sm:max-w-screen-sm">
                 {% if media_type == 'photo' %}
                     <img class="rounded-2xl" src='{{ img_link }}'>
                 {% elif media_type == 'video' %}
@@ -13,8 +13,16 @@
                 {% endif %}
             </div>
         </div>
-
-        <div class="flex justify-center" id="tweet" tweetID="{{ tweet_id }}"></div>
+        <div class="flex-row">
+            <div class="">
+                <a download href="{{ img_link }}">
+                    <button class="bg-white">
+                        Download
+                    </button>
+                </a>
+            </div>
+            <div class="flex justify-center" id="tweet" tweetID="{{ tweet_id }}"></div>
+        </div>
 
     </div>
 

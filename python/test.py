@@ -5,8 +5,8 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_key_secret)
 auth.set_access_token(olafyxyz_access_key, olafyxyz_access_key_secret)
 
 api = tweepy.API(auth)
-tweet = api.get_status(id='1323368879641354240', tweet_mode="extended")
-tweet_media = tweet.extended_entities['media'][0]
+tweet = api.get_status(id='1317180578605641728', tweet_mode="extended")
+tweet_media = tweet
 
 
 print(tweet_media)
