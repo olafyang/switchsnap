@@ -12,13 +12,13 @@
                 {% if img.media_type == 'photo' %}
                     <a class="sm:p-3 lg:p-1 transform transition hover:scale-105 ease-in-out duration-100"
                        href="/media/{{ img.twitter_media_id }}/">
-                        <img class="rounded-2xl" src="{{ img.media_url }}" alt="{{ img.media_url }}">
+                        <img loading="lazy" class="rounded-2xl" src="{{ img.media_url }}" alt="{{ img.media_url }}">
                     </a>
                 {% elif img.media_type == 'video' %}
                     <a class="sm:p-3 lg:p-1 transform transition hover:scale-105 ease-in-out duration-100"
                        href="/media/{{ img.twitter_media_id }}">
                         <div class="text-white z-10 relative w-full">
-                            <img class="rounded-2xl" src="{{ img.vid_thumbnail_url }}" alt="">
+                            <img loading="lazy" class="rounded-2xl" src="{{ img.vid_thumbnail_url }}" alt="">
                             <div class="absolute right-0 bottom-0 pr-3 pb-1">
                                 <div class="bg-black opacity-75 rounded">
                                     <p class="sm:text-4xl lg:text-base pl-2 pr-2">{{ img.duration_in_seconds }}</p>
