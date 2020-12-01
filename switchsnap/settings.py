@@ -27,6 +27,7 @@ SECRET_KEY = '***REMOVED***'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
     '***REMOVED***',
 ]
 
