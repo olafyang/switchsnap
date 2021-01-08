@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="flex flex-grow items-center ">
-            <div class="sm:text-2xl lg:text-base xl:text-base">
+            <div class="text-white sm:text-2xl lg:text-base xl:text-base">
                 {% if user.is_authenticated %}
                     <a href="/gallery/"
                        class="inline-block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
@@ -52,8 +52,13 @@
         {% endif %}
     </div>
 </nav>
-<!--<div class="bg-white">-->
-<!--    <p class="flex justify-center text-red-500 font-semibold text-xl">-->
-<!--        Now supports video!-->
-<!--    </p>-->
-<!--</div>-->
+
+{% if request.path != '/shutdown' %}
+<a href="/shutdown">
+    <div class="bg-white">
+        <p class="flex justify-center text-red-500 font-semibold text-xl">
+            SwitchSnap is shutting down on 31th of January 2021, click to learn more
+        </p>
+    </div>
+</a>
+{% endif%}

@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '***REMOVED***',
+    '127.0.0.1',
+    'www.switchsnap.net'
 ]
 
 # Application definition

@@ -163,3 +163,7 @@ def privacy(request):
         'handle': handle,
     }
     return render(request, "privacy.html", context)
+
+
+def shutdown_notice(request):
+    return render(request, "shutdown_notice.html")
